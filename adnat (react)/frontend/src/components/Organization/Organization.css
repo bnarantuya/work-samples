@@ -8,4 +8,11 @@
   border: 1px solid black;
   width: 200px;
   margin: 10px;
+  padding: 10px;
+}
+
+.org-button {
+  border: 1px solid black;
+  cursor: pointer;
+  margin: 5px;
 }

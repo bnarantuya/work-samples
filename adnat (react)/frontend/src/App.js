@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Home from './components/Home/Home';
+import Editorg from './components/Organization/Editorg';
+import Shifts from './components/Organization/Shifts';
 
 function App() {
   
@@ -13,6 +15,8 @@ function App() {
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
+          <Route path="/edit" component={Editorg}></Route>
+          <Route path="/shifts" component={Shifts}></Route>
           <Route path="/" component={Home}></Route>
         </Switch>
       </Router>

@@ -2,7 +2,8 @@
 export const initialState = {
   username: "guest",
   hourlyRate: 0,
-  organizationName: ''
+  organizationName: '',
+  org:{}
 };
 
 const rootReducer = (state = {}, action) => {
@@ -33,6 +34,13 @@ const rootReducer = (state = {}, action) => {
       return {
         ...state,
         organizationId: payload
+      }
+    }
+    case "SET_ORGANIZATION" : {
+      const payload = action.payload;
+      return {
+        ...state,
+        org: payload
       }
     }
     default:
