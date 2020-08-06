@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { useHistory, Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
 import './Styles.css';
 function Register() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const usernameRef = useFormInput('');
   const emailRef = useFormInput('');
@@ -19,7 +21,6 @@ function Register() {
       password: passwordRef.value,
       passwordConfirmation: repasswordRef.value
     };
-    console.log(data);
     fetch("http://localhost:3000/auth/signup", {
       method: "POST",
       cache: "no-cache",
@@ -30,12 +31,13 @@ function Register() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if(res.error) {
           alert(res.error);
         }
         if (res.sessionId) {
-          localStorage.setItem("tandaSession", res.sessionId);
+          console.log("SUCCESS");
+          localStorage.setItem('tandaSession', res.sessionId);
+          dispatch({type:'SET_USER', payload:usernameRef.value});
           history.push("/");
         }
       })

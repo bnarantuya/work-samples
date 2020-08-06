@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './Home.css';
-import Organizations from '../Organizations/Organizations';
+import Organization from '../Organization/Organization';
 
 function Home() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const state = useSelector(state => state);
   const name = useFormInput('');
   const payrate = useFormInput('');
   const [organizations, setOrganizations] = useState([]);
   const [isLoaded, setLoad] = useState(false);
+  const [error, setError] = useState('');
   useEffect(() => {
     fetch("http://localhost:3000/users", {
       headers: {
@@ -15,7 +21,15 @@ function Home() {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        if (res.error) {
+          setError(res.error);
+          console.log(res.error);
+        }
+        else {
+          dispatch({type: 'SET_USER', payload: res[0].name});
+          dispatch({type: 'SET_USER_ID', payload: res[0].id});
+          dispatch({type: 'SET_ORGANIZATION_ID', payload: res[0].organisationId});
+        }
       })
       .catch((err) => {
         console.log("ERROR: " + err);
@@ -40,6 +54,29 @@ function Home() {
       });
   }, [])
 
+  function logout() {
+    fetch("http://localhost:3000/auth/logout", {
+      method: "delete",
+      headers: {
+        'Authorization': localStorage.getItem('tandaSession')
+      },
+      body: JSON.stringify({userId:state.userId})
+    })
+      .then((res) => {
+        if (res.error) {
+          alert(res.error);
+        }
+        localStorage.removeItem('tandaSession');
+        dispatch({type: 'SET_USER', payload: 'Guest'});
+        dispatch({type: 'SET_USER_ID', payload: 0});
+        dispatch({type:'SET_ORGANIZATION_ID', payload: 0});
+        history.push('/login');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   function create() {
     const data = {
       name: name.value,
@@ -56,7 +93,7 @@ function Home() {
     })
       .then((res) => res.json())
       .then((res) => {
-        if(res.error) {
+        if (res.error) {
           alert(res.error);
         }
         console.log(res);
@@ -69,11 +106,13 @@ function Home() {
     <div className="home">
       <div className="featured">
         <div className="featured-title">
-          <span className="bolder">Hi, Batjargal</span>
+          <span className="bolder">Hi, {state.username}</span>
         </div>
+        {error.length !==0 ? (<div>{error}</div>) : (<div></div>)}
+        <div onClick={logout}> logout</div>
       </div>
       <div className="orga-title"> Organisations </div>
-      <Organizations isLoaded={isLoaded} organizations={organizations} />
+      <Organization isLoaded={isLoaded} organizations={organizations} />
       <div className="orga-title"> Create Organizations </div>
       <div>
         <div>
@@ -96,9 +135,6 @@ function Home() {
         <div className="create" onClick={create}>
           Create and Join
       </div>
-      </div>
-      <div className="product-list">
-
       </div>
     </div >
   );

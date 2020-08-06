@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+// import { useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import './Styles.css';
 function Login() {
-
+  // const dispatch = useDispatch();
   const email = useFormInput('');
   const password = useFormInput('');
   const history = useHistory();
@@ -23,11 +24,14 @@ function Login() {
       })
         .then((res) => res.json())
         .then((res) => {
-          if(res.error) {
+          if (res.error) {
             alert(res.error);
           }
-          localStorage.setItem('tandaSession', res.sessionId);
-          history.push('/');
+          else {
+            console.log(res);
+            localStorage.setItem('tandaSession', res.sessionId);
+            history.push('/');
+          }
         })
         .catch((err) => {
           alert("Invalid email and password. Please try again");

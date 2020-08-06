@@ -1,0 +1,11 @@
+.Organization {
+  display: flex;
+}
+
+.Per-org {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  width: 200px;
+  margin: 10px;
+}
