@@ -6,18 +6,18 @@ import Register from './components/Login/Register';
 import Home from './components/Home/Home';
 import Editorg from './components/Organization/Editorg';
 import Shifts from './components/Organization/Shifts';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
-  
   return (
     <div className="App">
       <Router>
         <Switch>
           <Route path="/login" component={Login}></Route>
           <Route path="/register" component={Register}></Route>
-          <Route path="/edit" component={Editorg}></Route>
-          <Route path="/shifts" component={Shifts}></Route>
-          <Route path="/" component={Home}></Route>
+          <PrivateRoute path="/edit" component={Editorg}></PrivateRoute>
+          <PrivateRoute path="/shifts" component={Shifts}></PrivateRoute>
+          <PrivateRoute path="/" component={Home}></PrivateRoute>
         </Switch>
       </Router>
     </div>
