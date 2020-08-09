@@ -16,3 +16,8 @@
   cursor: pointer;
   margin: 5px;
 }
+
+.Shifts .top-field {
+  display: grid;
+  grid-template-columns: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
+}

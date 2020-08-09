@@ -37,7 +37,9 @@ router.get("/", (req, res) => {
         })
       )
     )
-    .then(shifts => res.json(shifts))
+    .then(shifts => {
+      console.log(shifts);
+      res.json(shifts)})
     .catch(err => {
       if (err && err.statusCode) {
         return res.status(err.statusCode).json({ error: err.error });
