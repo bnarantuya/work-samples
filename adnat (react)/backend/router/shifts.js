@@ -17,19 +17,21 @@ router.get("/", (req, res) => {
   }
 
   DB.all(
-    "SELECT shifts.* FROM shifts INNER JOIN users ON shifts.user_id = users.id WHERE users.organisation_id = ?",
+    "SELECT shifts.*, users.name FROM shifts INNER JOIN users ON shifts.user_id = users.id WHERE users.organisation_id = ?",
     req.user.organisation_id
   )
     .then(shifts =>
       shifts.map(
         ({
           id,
+          name,
           start,
           finish,
           user_id: userId,
           break_length: breakLength
         }) => ({
           id,
+          name,
           userId,
           start,
           finish,
@@ -38,7 +40,6 @@ router.get("/", (req, res) => {
       )
     )
     .then(shifts => {
-      console.log(shifts);
       res.json(shifts)})
     .catch(err => {
       if (err && err.statusCode) {
@@ -53,7 +54,7 @@ router.post("/", (req, res) => {
     return res.status(401).json({ error: "You're not in an organisation" });
   }
 
-  const { userId, start, finish, breakLength } = req.body;
+  const { userId, start, finish, breakLength, workedHours, shiftCost } = req.body;
 
   DB.get(
     "SELECT * FROM users WHERE id = ? AND organisation_id = ?",
@@ -67,11 +68,13 @@ router.post("/", (req, res) => {
     })
     .then(() =>
       DB.run(
-        "INSERT INTO shifts (user_id, start, finish, break_length) VALUES (?, ?, ?, ?)",
+        "INSERT INTO shifts (user_id, start, finish, break_length, worked_hours, shift_cost) VALUES (?, ?, ?, ?)",
         userId,
         start,
         finish,
-        breakLength
+        breakLength,
+        workedHours,
+        shiftCost
       )
     )
     .then(() =>

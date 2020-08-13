@@ -9,7 +9,6 @@ function Editorg() {
   const [hourlyRate, setHourlyRate] = useState(org.hourlyRate);
   function save() {
     const url = 'http://localhost:3000/organisations/' + org.id;
-    console.log(url);
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -23,6 +22,7 @@ function Editorg() {
           console.log(res.error);
         }
         else {
+          console.log(res);
           history.push('/');
         }
       });
@@ -43,6 +43,7 @@ function Editorg() {
       </div>
       <div className="buttons">
         <div onClick={save}>Save</div>
+        <div onClick={()=> history.push('/')}>Cancel</div>
       </div>
     </div>
   )

@@ -2,19 +2,120 @@
   display: flex;
 }
 
+.Editorg .buttons div {
+  cursor: pointer;
+}
+
+.Create-org {
+  display: flex;
+  flex-direction: column;
+  margin: 8px;
+}
+
+.Create-org .text-input {
+  margin: 8px 0px;
+}
+
+.Create-org .create { 
+  font-weight: 300;
+  color: #153008;
+  cursor: pointer;
+  padding: 4px 16px 8px 16px;
+  border: 1px solid #affa8b;
+  border-radius: 5px;
+  width: 230px;
+  text-align: center;
+}
+
+.Create-org .create:hover {
+  border: 1px solid #68db30;
+  border-radius: 5px;
+}
+
 .Per-org {
   display: flex;
-  justify-content: space-between;
-  border: 1px solid black;
-  width: 200px;
+  border: 1px solid #a5a5a5;
+  flex-direction: column;
   margin: 10px;
+  width: 200px;
+  border-radius: 6px;
+}
+
+.org-header {
+  display: grid;
+  grid-template-columns: 70px 100px 30px;
+}
+
+.Per-org {
+  box-shadow: 2px 1px 3px 1px #fafafa;
+}
+.Per-org:hover {
+  border-color: #575757;
+}
+
+.Per-org .org-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.Per-org .org-footer .view {
+  border: 1px solid #fcddb6;
+  color: #eb7700;
+  margin-right: 10px;
+}
+
+.Per-org .org-footer .view:hover {
+  border-color: #ed8a0e;
+}
+
+.Per-org .org-footer .leave {
+  font-weight: 300;
+  color: #ff0081;
+  cursor: pointer;
+  padding: 4px 8px 8px 8px;
+  border: 1px solid #ffe4e4;
+  border-radius: 5px;
+}
+
+.Per-org .org-footer .leave:hover {
+  border: 1px solid #fc8585;
+  border-radius: 5px;
+}
+
+.Per-org .org-title {
+  font-size: 20px;
+}
+
+.Per-org .edit-btn {
+  justify-self: center;
+}
+
+.Per-org .org-content .content {
+  display: grid;
+  grid-template-columns: 30px 120px 50px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-items: start;
+}
+
+.Per-org .org-footer {
+  display:flex;
+  justify-content: center;
   padding: 10px;
 }
 
 .org-button {
-  border: 1px solid black;
+  font-weight: 300;
+  color: #153008;
   cursor: pointer;
-  margin: 5px;
+  padding: 4px 16px 8px 16px;
+  border: 1px solid #affa8b;
+  border-radius: 5px;
+}
+
+.org-button:hover {
+  border: 1px solid #68db30;
+  border-radius: 5px;
 }
 
 .Shifts .top-field {

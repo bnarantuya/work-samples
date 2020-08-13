@@ -23,11 +23,9 @@ function Home() {
       .then((res) => {
         if (res.error) {
           setError(res.error);
-          console.log(res.error);
         }
         else {
           setOrg(true);
-          console.log(res);
           dispatch({ type: 'SET_USER', payload: res[0].name });
           dispatch({ type: 'SET_USER_ID', payload: res[0].id });
           dispatch({ type: 'SET_ORGANIZATION_ID', payload: res[0].organisationId });
@@ -82,19 +80,45 @@ function Home() {
     <div className="home">
       <div className="featured">
         <div className="featured-title">
+          <div></div>
           <span className="bolder">Hi, {state.username}</span>
+          <div className="logout" onClick={logout}>logout</div>
         </div>
-        {!hasOrg && (<div>{error}</div>)}
-        <div onClick={logout}> logout</div>
       </div>
-      {!hasOrg ? (<div>
-        <Organization 
-          isLoaded={isLoaded} 
-          organizations={organizations}
-          mode={'group'}
-          />
-        <Createorg /> 
-      </div>) : 
+
+      <div className="separator"></div>
+
+      {!hasOrg && (
+        <div className="error">
+          {error}
+          <div>You can join existing organisation<p className="joinP">1</p> or you can create <p className="createP">2</p></div>
+        </div>
+        
+      )}
+
+    <div className="separator"></div>
+
+      {!hasOrg ? (
+        <div className="body-field">
+          <div className="section-field">
+            <div className="section-title">
+              <div className="number">1</div>
+              <span className="title">Organisations</span>
+            </div>
+            <Organization
+              isLoaded={isLoaded}
+              organizations={organizations}
+              mode={'group'}
+            />
+          </div>
+          <div className="separator"></div>
+          <div className="section-field">
+            <div className="section-title">
+              <div className="number">2</div>
+              <span className="title">Create Organisation</span>
+            </div>
+            <Createorg />
+          </div></div>) :
         <Perorg
           mode={'personal'}
           org={state.org}

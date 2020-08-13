@@ -35,9 +35,7 @@ function Createorg() {
   }
   return (
     <div className="Create-org">
-      <div className="orga-title"> Create Organizations </div>
-      <div>
-        <div>
+        <div className="text-input">
           <input
             type="text"
             className="nameInput"
@@ -46,7 +44,7 @@ function Createorg() {
             placeholder="Name"
           />
         </div>
-        <div>
+        <div className="text-input">
           <input
             type="text"
             className="payrateInput"
@@ -57,7 +55,6 @@ function Createorg() {
         <div className="create" onClick={create}>
           Create and Join
         </div>
-      </div>
     </div>
   )
 }

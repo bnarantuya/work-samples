@@ -11,7 +11,6 @@ function Organization({ isLoaded, organizations, mode }) {
       </div>
     ) :
       (<div> No Organization registered</div>))
-
   )
 }
 
